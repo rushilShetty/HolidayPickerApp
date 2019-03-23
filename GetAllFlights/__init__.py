@@ -9,17 +9,13 @@ from datetime import datetime
 def main(req: func.HttpRequest) -> func.HttpResponse:
     logging.info('Python HTTP trigger function processed a request.')
 
-    name = req.params.get('name')
-    if not name:
-        try:
-            req_body = req.get_json()
-        except ValueError:
-            pass
-        else:
-            name = req_body.get('name')
+    origin = req.params.get('origin')
+    startDate = req.params.get('startDate')
+    endDate = req.params.get('endDate')
+    maxPrice = req.params.get('maxPrice')
 
-    if name:
-        myData = pickHoliday("CRL", "2019-08-14", "2019-08-20", 150)
+    if origin:
+        myData = pickHoliday(origin, startDate, endDate, int(maxPrice))
         return func.HttpResponse(myData)
     else:
         return func.HttpResponse(
