@@ -1,0 +1,309 @@
+<!DOCTYPE HTML>
+<html lang="en">
+
+<head>
+  <title>Holiday Destination Picker</title>
+  <meta charset="UTF-8" />
+  <style>
+    table.minimalistBlack {
+      border: 3px solid #000000;
+      width: 100%;
+      text-align: left;
+      border-collapse: collapse;
+    }
+
+    table.minimalistBlack td,
+    table.minimalistBlack th {
+      border: 1px solid #000000;
+      padding: 5px 4px;
+    }
+
+    table.minimalistBlack tbody td {
+      font-size: 13px;
+    }
+
+    table.minimalistBlack thead {
+      background: #CFCFCF;
+      background: -moz-linear-gradient(top, #dbdbdb 0%, #d3d3d3 66%, #CFCFCF 100%);
+      background: -webkit-linear-gradient(top, #dbdbdb 0%, #d3d3d3 66%, #CFCFCF 100%);
+      background: linear-gradient(to bottom, #dbdbdb 0%, #d3d3d3 66%, #CFCFCF 100%);
+      border-bottom: 3px solid #000000;
+    }
+
+    table.minimalistBlack thead th {
+      font-size: 15px;
+      font-weight: bold;
+      color: #000000;
+      text-align: left;
+    }
+  </style>
+
+</head>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+
+<body>
+  <h1>Choose the airport, dates, and max return price for your next holiday!</h1>
+  <form>
+    <fieldset>
+      <p>
+        <label>Starting airport</label>
+        <select id="airportList">
+          <option value="CRL">Brussels Charleroi</option>
+          <option value="BRU">Brussels Zaventem</option>
+        </select>
+      </p>
+      <form>
+        <p>
+          Max return price
+          <input type="text" id="maxReturnPrice" name="maxPrice"></p>
+      </form>
+      <form>
+        Departure Date:
+        <input type="date" id="depDate" name="depDate">
+        Arrival Date:
+        <input type="date" id="arrDate" name="arrDate">
+      </form>
+    </fieldset>
+    <p>
+      <button id="btnShowPrices">Show Routes and Prices</button></p>
+    <script type="text/javascript" language="javascript">
+      $(document).ready(function () {
+        $("#btnShowPrices").click(function () {
+
+          var selectedAirport = $('#airportList').val();
+          var maxReturnPrice = document.getElementById("maxReturnPrice").value;
+          var depDate = document.getElementById("depDate").value;
+          var arrDate = document.getElementById("arrDate").value;
+
+          // Call http function here and then get the json data
+
+          var responseData = {
+            "allFlights": [
+              {
+                "num": 1,
+                "flightInfo": {
+                  "origin": "Brussels",
+                  "destination": "Valencia",
+                  "outbound": {
+                    "departureDateTime": "14-August-19 06:55:00",
+                    "arrivalDateTime": "14-August-19 09:10:00",
+                    "price": 46.91
+                  },
+                  "inbound": {
+                    "departureDateTime": "20-August-19 09:40:00",
+                    "arrivalDateTime": "20-August-19 12:00:00",
+                    "price": 93.83
+                  },
+                  "totalPrice": 140.74
+                }
+              },
+              {
+                "num": 2,
+                "flightInfo": {
+                  "origin": "Brussels",
+                  "destination": "Rome Fiumicino",
+                  "outbound": {
+                    "departureDateTime": "14-August-19 10:10:00",
+                    "arrivalDateTime": "14-August-19 12:25:00",
+                    "price": 22.98
+                  },
+                  "inbound": {
+                    "departureDateTime": "20-August-19 07:00:00",
+                    "arrivalDateTime": "20-August-19 09:20:00",
+                    "price": 29.57
+                  },
+                  "totalPrice": 52.55
+                }
+              },
+              {
+                "num": 3,
+                "flightInfo": {
+                  "origin": "Brussels",
+                  "destination": "Madrid",
+                  "outbound": {
+                    "departureDateTime": "14-August-19 19:45:00",
+                    "arrivalDateTime": "14-August-19 22:15:00",
+                    "price": 24.99
+                  },
+                  "inbound": {
+                    "departureDateTime": "20-August-19 08:30:00",
+                    "arrivalDateTime": "20-August-19 10:55:00",
+                    "price": 42.83
+                  },
+                  "totalPrice": 67.82
+                }
+              },
+              {
+                "num": 4,
+                "flightInfo": {
+                  "origin": "Brussels",
+                  "destination": "Palma de Mallorca",
+                  "outbound": {
+                    "departureDateTime": "14-August-19 13:00:00",
+                    "arrivalDateTime": "14-August-19 15:10:00",
+                    "price": 46.91
+                  },
+                  "inbound": {
+                    "departureDateTime": "20-August-19 15:45:00",
+                    "arrivalDateTime": "20-August-19 18:05:00",
+                    "price": 66.29
+                  },
+                  "totalPrice": 113.2
+                }
+              },
+              {
+                "num": 5,
+                "flightInfo": {
+                  "origin": "Brussels",
+                  "destination": "Dublin",
+                  "outbound": {
+                    "departureDateTime": "14-August-19 09:50:00",
+                    "arrivalDateTime": "14-August-19 10:40:00",
+                    "price": 28.55
+                  },
+                  "inbound": {
+                    "departureDateTime": "20-August-19 19:40:00",
+                    "arrivalDateTime": "20-August-19 22:25:00",
+                    "price": 28.55
+                  },
+                  "totalPrice": 57.1
+                }
+              },
+              {
+                "num": 6,
+                "flightInfo": {
+                  "origin": "Brussels",
+                  "destination": "Porto",
+                  "outbound": {
+                    "departureDateTime": "14-August-19 11:00:00",
+                    "arrivalDateTime": "14-August-19 12:25:00",
+                    "price": 36.71
+                  },
+                  "inbound": {
+                    "departureDateTime": "20-August-19 07:15:00",
+                    "arrivalDateTime": "20-August-19 10:35:00",
+                    "price": 74.45
+                  },
+                  "totalPrice": 111.16
+                }
+              },
+              {
+                "num": 7,
+                "flightInfo": {
+                  "origin": "Brussels",
+                  "destination": "Milan Malpensa",
+                  "outbound": {
+                    "departureDateTime": "14-August-19 18:50:00",
+                    "arrivalDateTime": "14-August-19 20:25:00",
+                    "price": 19.99
+                  },
+                  "inbound": {
+                    "departureDateTime": "20-August-19 20:50:00",
+                    "arrivalDateTime": "20-August-19 22:25:00",
+                    "price": 19.99
+                  },
+                  "totalPrice": 39.98
+                }
+              },
+              {
+                "num": 8,
+                "flightInfo": {
+                  "origin": "Brussels",
+                  "destination": "Berlin Sch\u00f6nefeld",
+                  "outbound": {
+                    "departureDateTime": "14-August-19 08:15:00",
+                    "arrivalDateTime": "14-August-19 09:40:00",
+                    "price": 26.51
+                  },
+                  "inbound": {
+                    "departureDateTime": "20-August-19 06:20:00",
+                    "arrivalDateTime": "20-August-19 07:50:00",
+                    "price": 19.99
+                  },
+                  "totalPrice": 46.5
+                }
+              },
+              {
+                "num": 9,
+                "flightInfo": {
+                  "origin": "Brussels",
+                  "destination": "Lisbon",
+                  "outbound": {
+                    "departureDateTime": "14-August-19 07:20:00",
+                    "arrivalDateTime": "14-August-19 09:15:00",
+                    "price": 56.09
+                  },
+                  "inbound": {
+                    "departureDateTime": "20-August-19 09:55:00",
+                    "arrivalDateTime": "20-August-19 13:40:00",
+                    "price": 66.29
+                  },
+                  "totalPrice": 122.38
+                }
+              },
+              {
+                "num": 10,
+                "flightInfo": {
+                  "origin": "Brussels",
+                  "destination": "Barcelona",
+                  "outbound": {
+                    "departureDateTime": "14-August-19 20:15:00",
+                    "arrivalDateTime": "14-August-19 22:20:00",
+                    "price": 35.69
+                  },
+                  "inbound": {
+                    "departureDateTime": "20-August-19 06:15:00",
+                    "arrivalDateTime": "20-August-19 08:30:00",
+                    "price": 29.57
+                  },
+                  "totalPrice": 65.26
+                }
+              }
+            ]
+          };
+          // var tr;
+          // var allFlightsData = responseData["allFlights"];
+          // for (var i = 0; i < allFlightsData.length; i++) {
+          //   tr1 = $('<tr/>');
+          //   tr1.append("<td>" + allFlightsData[i].num + "</td>");
+          //   tr1.append("<td>" + responseData["allFlights"][i].flightInfo.origin + "</td>");
+          //   tr1.append("<td>" + responseData["allFlights"][i].flightInfo.destination + "</td>");
+          //   tr1.append("<td>" + responseData["allFlights"][i].flightInfo.outbound.departureDateTime + "</td>");
+          //   tr1.append("<td>" + responseData["allFlights"][i].flightInfo.outbound.arrivalDateTime + "</td>");
+          //   tr1.append("<td>" + responseData["allFlights"][i].flightInfo.outbound.price + "</td>");
+          //   $('table').append(tr1);
+          //   tr2 = $('<tr/>');
+          //   tr2.append("<td>" + "" + "</td>");
+          //   tr2.append("<td>" + "" + "</td>");
+          //   tr2.append("<td>" + "" + "</td>");
+          //   tr2.append("<td>" + responseData["allFlights"][i].flightInfo.inbound.departureDateTime + "</td>");
+          //   tr2.append("<td>" + responseData["allFlights"][i].flightInfo.inbound.arrivalDateTime + "</td>");
+          //   tr2.append("<td>" + responseData["allFlights"][i].flightInfo.inbound.price + "</td>");
+          //   $('table').append(tr2);
+          //   tr3 = $('<tr/>');
+          //   tr3.append("<td>" + "" + "</td>");
+          //   tr3.append("<td>" + "" + "</td>");
+          //   tr3.append("<td>" + "" + "</td>");
+          //   tr3.append("<td>" + "" + "</td>");
+          //   tr3.append("<td>" + "Total:" + "</td>");
+          //   tr3.append("<td>" + responseData["allFlights"][i].flightInfo.totalPrice + "</td>");
+          //   $('table').append(tr3);
+          // }
+        });
+      });
+    </script>
+    <p>
+      <table class="minimalistBlack" width="100%" cellspacing="0">
+        <tr>
+          <th>Flights</th>
+          <th>Origin</th>
+          <th>Destination</th>
+          <th>Departure Date Time</th>
+          <th>Arrival Date Time</th>
+          <th>Price in Euros (€)</th>
+        </tr>
+      </table>
+    </p>
+</body>
+
+</html>
